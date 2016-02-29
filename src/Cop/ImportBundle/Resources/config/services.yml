@@ -1,0 +1,6 @@
+services:
+#    cop_import.example:
+#        class: Cop\ImportBundle\Example
+#        arguments: ["@service_id", "plain_value", %parameter%]
+    import.csvtoarray:
+        class: Cop\ImportBundle\Utils\ConvertCsvToArray

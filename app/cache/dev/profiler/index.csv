@@ -1,0 +1,3 @@
+36cb4a,88.179.203.15,GET,http://163.172.129.160/app_dev.php/,1456778441,,200
+19d691,127.0.0.1,GET,http://163.172.129.160/app_dev.php/_fragment?_path=_format%3Dhtml%26_locale%3Dfr%26_controller%3DCopCommonBundle%253ANavbar%253Aindex,1456778494,fac6e3,200
+fac6e3,88.179.203.15,GET,http://163.172.129.160/app_dev.php/fr/home,1456778494,,200

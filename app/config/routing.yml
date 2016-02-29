@@ -1,0 +1,22 @@
+cop_common:
+    resource: "@CopCommonBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+cop_data_store:
+    resource: "@CopDataStoreBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+cop_import:
+    resource: "@CopImportBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+app:
+    resource: "@AppBundle/Controller/"
+    type:     annotation
+
+app_homepage_translated:
+    resource: "@CopHomeBundle/Controller/HomeController.php"
+    type:     annotation

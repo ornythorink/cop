@@ -1,0 +1,87 @@
+<?php
+
+
+namespace Cop\DataStoreBundle\Entity;
+
+use Doctrine\ORM\EntityRepository;
+
+class CategoriesRepository extends EntityRepository
+{
+    public function findRootCategories()
+    {
+        $query = $this->_em->createQuery(
+            "
+                SELECT
+                  c1
+                FROM Cop\DataStoreBundle\Entity\Categories c1
+
+                WHERE c1.idParent = :parent
+            "
+        );
+
+        $query->setParameter('parent', 0);
+        $query->useQueryCache(true);
+
+        $results = $query->getResult();
+
+        return $results;
+    }
+
+    public function findRootCategoriesByChildSlug($categoryslug)
+    {
+        $query = $this->_em->createQuery(
+            "
+                SELECT
+                c2
+                FROM Cop\DataStoreBundle\Entity\Categories c1
+                INNER JOIN Cop\DataStoreBundle\Entity\Categories c2 WITH c1.idParent = c2.id
+                WHERE c1.categoryslug = :categoryslug
+            "
+        );
+
+        $query->setParameter('categoryslug', $categoryslug);
+        $query->useQueryCache(true);
+
+        $results = $query->getOneOrNullResult();
+
+        return $results;
+    }
+
+    public function findChildCategories($idParent)
+    {
+        $query = $this->_em->createQuery(
+            "
+                SELECT
+                  c1
+                FROM Cop\DataStoreBundle\Entity\Categories c1
+
+                WHERE c1.idParent = :parent
+            "
+        );
+        $query->useQueryCache(true);
+        $query->setParameter('parent', $idParent);
+        $results = $query->getResult();
+
+        return $results;
+    }
+
+    public function getBreadCrump($slug)
+    {
+        $query = $this->_em->createQuery(
+            "
+                SELECT
+                  c1 , c2.nameCategorie AS parent
+                FROM Cop\DataStoreBundle\Entity\Categories c1
+                INNER JOIN Cop\DataStoreBundle\Entity\Categories c2 WITH c1.idParent = c2.id
+                WHERE c1.categoryslug = :slug
+            "
+        );
+        $query->useQueryCache(true);
+        $query->setParameter('slug', $slug);
+
+        $results = $query->getResult();
+
+        return $results;
+    }
+
+}

@@ -12,7 +12,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *
  * @ORM\Table(  name="products", indexes={
  *      @ORM\Index(name="status_idx", columns={"status"}) ,
- *      @ORM\Index(name="api_id_idx", columns={"id_api"})
+ *      @ORM\Index(name="api_id_idx", columns={"id_api"}) ,
  *      }  )
  * @ORM\Entity(repositoryClass="Cop\DataStoreBundle\Entity\ProductsRepository")
  * @UniqueEntity("short_url")

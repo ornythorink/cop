@@ -1,6 +1,6 @@
 <?php
 
-/* TwigBundle:Exception:exception.html.twig */
+/* @Twig/Exception/exception.html.twig */
 class __TwigTemplate_5e8c105af399d84e04bf89bc2e8d9fe5013a3bdfd737ec18f8fea60d80fe0525 extends Twig_Template
 {
     public function __construct(Twig_Environment $env)
@@ -15,8 +15,8 @@ class __TwigTemplate_5e8c105af399d84e04bf89bc2e8d9fe5013a3bdfd737ec18f8fea60d80f
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_b549546ee5e4a71413803f602d50a1e130f2a8b0434a76b28cb5201c4ce600ee = $this->env->getExtension("native_profiler");
-        $__internal_b549546ee5e4a71413803f602d50a1e130f2a8b0434a76b28cb5201c4ce600ee->enter($__internal_b549546ee5e4a71413803f602d50a1e130f2a8b0434a76b28cb5201c4ce600ee_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "TwigBundle:Exception:exception.html.twig"));
+        $__internal_2a09ce92d3c0d4aa4952cf03487053c2ee510d83b2cd3a2e2654141ed95b0027 = $this->env->getExtension("native_profiler");
+        $__internal_2a09ce92d3c0d4aa4952cf03487053c2ee510d83b2cd3a2e2654141ed95b0027->enter($__internal_2a09ce92d3c0d4aa4952cf03487053c2ee510d83b2cd3a2e2654141ed95b0027_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "@Twig/Exception/exception.html.twig"));
 
         // line 1
         echo "<div class=\"block-exception\">
@@ -106,7 +106,7 @@ class __TwigTemplate_5e8c105af399d84e04bf89bc2e8d9fe5013a3bdfd737ec18f8fea60d80f
         foreach ($context['_seq'] as $context["position"] => $context["e"]) {
             // line 40
             echo "    ";
-            $this->loadTemplate("@Twig/Exception/traces.html.twig", "TwigBundle:Exception:exception.html.twig", 40)->display(array("exception" => $context["e"], "position" => $context["position"], "count" => (isset($context["previous_count"]) ? $context["previous_count"] : $this->getContext($context, "previous_count"))));
+            $this->loadTemplate("@Twig/Exception/traces.html.twig", "@Twig/Exception/exception.html.twig", 40)->display(array("exception" => $context["e"], "position" => $context["position"], "count" => (isset($context["previous_count"]) ? $context["previous_count"] : $this->getContext($context, "previous_count"))));
         }
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['position'], $context['e'], $context['_parent'], $context['loop']);
@@ -156,7 +156,7 @@ class __TwigTemplate_5e8c105af399d84e04bf89bc2e8d9fe5013a3bdfd737ec18f8fea60d80f
         <div id=\"logs\">
             ";
             // line 66
-            $this->loadTemplate("@Twig/Exception/logs.html.twig", "TwigBundle:Exception:exception.html.twig", 66)->display(array("logs" => $this->getAttribute((isset($context["logger"]) ? $context["logger"] : $this->getContext($context, "logger")), "logs", array())));
+            $this->loadTemplate("@Twig/Exception/logs.html.twig", "@Twig/Exception/exception.html.twig", 66)->display(array("logs" => $this->getAttribute((isset($context["logger"]) ? $context["logger"] : $this->getContext($context, "logger")), "logs", array())));
             // line 67
             echo "        </div>
     </div>
@@ -199,7 +199,7 @@ class __TwigTemplate_5e8c105af399d84e04bf89bc2e8d9fe5013a3bdfd737ec18f8fea60d80f
         echo "
 ";
         // line 91
-        $this->loadTemplate("@Twig/Exception/traces_text.html.twig", "TwigBundle:Exception:exception.html.twig", 91)->display(array("exception" => (isset($context["exception"]) ? $context["exception"] : $this->getContext($context, "exception"))));
+        $this->loadTemplate("@Twig/Exception/traces_text.html.twig", "@Twig/Exception/exception.html.twig", 91)->display(array("exception" => (isset($context["exception"]) ? $context["exception"] : $this->getContext($context, "exception"))));
         // line 92
         echo "
 <script type=\"text/javascript\">//<![CDATA[
@@ -235,13 +235,13 @@ class __TwigTemplate_5e8c105af399d84e04bf89bc2e8d9fe5013a3bdfd737ec18f8fea60d80f
 //]]></script>
 ";
         
-        $__internal_b549546ee5e4a71413803f602d50a1e130f2a8b0434a76b28cb5201c4ce600ee->leave($__internal_b549546ee5e4a71413803f602d50a1e130f2a8b0434a76b28cb5201c4ce600ee_prof);
+        $__internal_2a09ce92d3c0d4aa4952cf03487053c2ee510d83b2cd3a2e2654141ed95b0027->leave($__internal_2a09ce92d3c0d4aa4952cf03487053c2ee510d83b2cd3a2e2654141ed95b0027_prof);
 
     }
 
     public function getTemplateName()
     {
-        return "TwigBundle:Exception:exception.html.twig";
+        return "@Twig/Exception/exception.html.twig";
     }
 
     public function isTraitable()

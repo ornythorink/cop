@@ -105,6 +105,20 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
 
         }
 
+        // cop_api_default_index
+        if (rtrim($pathinfo, '/') === '') {
+            if (substr($pathinfo, -1) !== '/') {
+                return $this->redirect($pathinfo.'/', 'cop_api_default_index');
+            }
+
+            return array (  '_controller' => 'Cop\\ApiBundle\\Controller\\DefaultController::indexAction',  '_route' => 'cop_api_default_index',);
+        }
+
+        // cop_api_znxdb_index
+        if (0 === strpos($pathinfo, '/home/products/znx/db') && preg_match('#^/home/products/znx/db/(?P<search>[^/]++)$#s', $pathinfo, $matches)) {
+            return $this->mergeDefaults(array_replace($matches, array('_route' => 'cop_api_znxdb_index')), array (  '_controller' => 'Cop\\ApiBundle\\Controller\\ZnxDbController::indexAction',));
+        }
+
         // cop_common_default_index
         if (rtrim($pathinfo, '/') === '') {
             if (substr($pathinfo, -1) !== '/') {

@@ -1,3 +1,8 @@
+cop_api:
+    resource: "@CopApiBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 cop_common:
     resource: "@CopCommonBundle/Controller/"
     type:     annotation

@@ -14,6 +14,43 @@ use Doctrine\ORM\Query\ResultSetMappingBuilder;
  */
 class ProductsRepository extends EntityRepository
 {
+    public function findLatestForHome($term, $locale)
+    {
+        $term1 = urldecode($term);
+        $data = array();
+
+        $term2 = $term1;
+
+        $sql = '
+                  SELECT p.* ,
+                            MATCH(p.name,p.description,p.category_merchant)
+                                    AGAINST (:term) as Relevance
+                   FROM
+                   products AS p
+                   WHERE status = "Validation"
+                      AND    MATCH (p.name,p.description,p.category_merchant)  AGAINST( :term2 IN  BOOLEAN MODE)
+
+                   GROUP BY p.name
+                   ORDER BY Relevance DESC
+                   LIMIT 0 , 100
+                   ';
+
+        $params['term']  = $term1;
+        $params['term2'] = $term2;
+
+        $stmt = $this->_em->getConnection()->prepare($sql);
+        $stmt->execute($params);
+
+        $results = $stmt->fetchAll();
+        foreach($results as $item)
+        {
+            $data[] = $item;
+        }
+        return $data;
+    }
+
+
+
     public function searchProducts($term, $locale)
     {
         $term1 = urldecode($term);

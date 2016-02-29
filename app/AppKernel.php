@@ -19,7 +19,8 @@ class AppKernel extends Kernel
             new Cop\CommonBundle\CopCommonBundle(),
             new Cop\HomeBundle\CopHomeBundle(),
             new Cop\DataStoreBundle\CopDataStoreBundle(),
-            new Cop\ImportBundle\CopImportBundle()
+            new Cop\ImportBundle\CopImportBundle(),
+            new Cop\ApiBundle\CopApiBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {

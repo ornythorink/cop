@@ -26,7 +26,13 @@ class ProductsRepository extends EntityRepository
             ->setParameter("term2", "chaussures")
             ->orderBy('Relevance')->getQuery();
 
-        var_dump($query->getResult());
+        $set = $query->getResult();
+        foreach($set as $s){
+            $s[0]->setRelevance($s['Relevance']);
+            $data[] = $s[0];
+        }
+
+        return $data;
     }
 
 

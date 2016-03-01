@@ -220,6 +220,28 @@ class Products
     private $short_url;
 
     /**
+     * @var text
+     *
+     */
+    private $relevance;
+
+    /**
+     * @return text
+     */
+    public function getRelevance()
+    {
+        return $this->relevance;
+    }
+
+    /**
+     * @param text $relevance
+     */
+    public function setRelevance($relevance)
+    {
+        $this->relevance = $relevance;
+    }
+
+    /**
      * @return mixed
      */
     public function getShortUrl()

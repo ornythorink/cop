@@ -6,9 +6,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\Serializer\Serializer;
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
 
 class ZnxDbController extends Controller
@@ -27,15 +24,12 @@ class ZnxDbController extends Controller
         $repoProducts = $em->getRepository('Cop\DataStoreBundle\Entity\Products');
         $result = $repoProducts->findLatestForHome($search, $locale);
 
-        var_dump($result[0]);
-        exit;
-        $encode = json_encode($result);
-        $decode = json_decode($encode);
 
-        var_dump($decode[0]);
+//        $test = json_encode(serialize($result));
+//        $re   = unserialize(json_decode($test));
 
         $response->setData(array(
-            1
+            serialize($result)
         ));
 
         return $response;

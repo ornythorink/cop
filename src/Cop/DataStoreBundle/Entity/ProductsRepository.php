@@ -16,32 +16,17 @@ class ProductsRepository extends EntityRepository
 {
     public function findLatestForHome($term, $locale)
     {
-        $term1 = urldecode($term);
-        $data = array();
+        $qb =  $this->createQueryBuilder('p');
+        $query =
+            $qb->select("p,
+             MATCH_AGAINST(p.name,p.description,p.categoryMerchant , :term 'IN  BOOLEAN MODE')
+             as Relevance")
+            ->where("MATCH_AGAINST (p.name,p.description,p.categoryMerchant, :term2 'IN  BOOLEAN MODE')  > 0.8")
+            ->setParameter("term", "chaussures")
+            ->setParameter("term2", "chaussures")
+            ->orderBy('Relevance')->getQuery();
 
-        $term2 = $term1;
-
-        $sql = '
-                  SELECT p.* ,
-                            MATCH(p.name,p.description,p.category_merchant)
-                                    AGAINST (:term) as Relevance
-                   FROM
-                   products AS p
-                   WHERE status = "Validation"
-                      AND    MATCH (p.name,p.description,p.category_merchant)  AGAINST( :term2 IN  BOOLEAN MODE)
-
-                   GROUP BY p.name
-                   ORDER BY Relevance DESC
-                   LIMIT 0 , 100
-                   ';
-
-        $params['term']  = $term1;
-        $params['term2'] = $term2;
-
-        $stmt = $this->_em->getConnection()->prepare($sql);
-        $stmt->execute($params);
-
-        return $stmt->fetchAll();
+        var_dump($query->getResult());
     }
 
 

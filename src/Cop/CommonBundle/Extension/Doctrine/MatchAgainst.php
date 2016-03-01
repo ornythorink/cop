@@ -1,5 +1,6 @@
 <?php
-namespace CopCommonBundle\Extension\Doctrine\Query\Mysql;
+
+namespace Cop\CommonBundle\Extension\Doctrine;
 
 use Doctrine\ORM\Query\Lexer;
 use Doctrine\ORM\Query\AST\Functions\FunctionNode;

@@ -59,7 +59,7 @@ doctrine:
         auto_mapping: true
         dql:
             string_functions:
-                MATCH_AGAINST: TutoBundle\Extension\Doctrine\Query\Mysql\MatchAgainst
+                MATCH_AGAINST: Cop\CommonBundle\Extension\Doctrine\MatchAgainst
 
 # Swiftmailer Configuration
 swiftmailer:

@@ -41,12 +41,7 @@ class ProductsRepository extends EntityRepository
         $stmt = $this->_em->getConnection()->prepare($sql);
         $stmt->execute($params);
 
-        $results = $stmt->fetchAll();
-        foreach($results as $item)
-        {
-            $data[] = $item;
-        }
-        return $data;
+        return $stmt->fetchAll();
     }
 
 

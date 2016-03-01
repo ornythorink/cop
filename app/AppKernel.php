@@ -21,6 +21,8 @@ class AppKernel extends Kernel
             new Cop\DataStoreBundle\CopDataStoreBundle(),
             new Cop\ImportBundle\CopImportBundle(),
             new Cop\ApiBundle\CopApiBundle(),
+            new WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle(),
+
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {

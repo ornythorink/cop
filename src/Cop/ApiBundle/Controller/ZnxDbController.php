@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 class ZnxDbController extends Controller
 {
     /**
-     * @Route("/home/products/znx/db/{search}")
+     * @Route("/home/products/znx/db/fr/{search}")
      */
     public function indexAction(Request $request)
     {

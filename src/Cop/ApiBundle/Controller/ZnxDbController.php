@@ -24,13 +24,7 @@ class ZnxDbController extends Controller
         $repoProducts = $em->getRepository('Cop\DataStoreBundle\Entity\Products');
         $result = $repoProducts->findLatestForHome($search, $locale);
 
-
-//        $test = json_encode(serialize($result));
-//        $re   = unserialize(json_decode($test));
-
-        $response->setData(array(
-            serialize($result)
-        ));
+        $response->setData(serialize($result));
 
         return $response;
 

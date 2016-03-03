@@ -36,6 +36,7 @@ class ProductsRepository extends EntityRepository
 
         foreach($set as $s){
             $s[0]->setRelevance($s['Relevance']);
+            $s[0]->setOffers($s[0]);
             $it->setPriceFilter($s[0]->getPrice());
             $it->setBrandFilter($s[0]->getBrand());
             $it->append($s[0]);

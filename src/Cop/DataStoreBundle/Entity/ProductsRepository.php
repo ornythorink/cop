@@ -5,6 +5,7 @@ namespace Cop\DataStoreBundle\Entity;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\ORM\Query\ResultSetMappingBuilder;
+use Cop\DataStoreBundle\Utils\DataStoreIterator;
 
 /**
  * ProductsRepository
@@ -28,16 +29,19 @@ class ProductsRepository extends EntityRepository
 
         $set = $query->getResult();
 
-        $data = new \ArrayIterator;
+        $data = array();
+
+        $it = new DataStoreIterator($data);
+
 
         foreach($set as $s){
             $s[0]->setRelevance($s['Relevance']);
-            $s[0]->setPriceFilter($s[0]->getPrice());
-            $s[0]->setBrandFilter($s[0]->getBrand());
-            $data[] = $s[0];
+            $it->setPriceFilter($s[0]->getPrice());
+            $it->setBrandFilter($s[0]->getBrand());
+            $it->append($s[0]);
         }
 
-        return $data;
+        return $it;
     }
 
 

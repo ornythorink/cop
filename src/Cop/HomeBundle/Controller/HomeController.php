@@ -32,6 +32,7 @@ class HomeController extends Controller
 
         $produits = unserialize(json_decode($response));
 
+
          $form = $this->createFormBuilder()
             ->add('query', 'text', array(
                     'attr' => array(

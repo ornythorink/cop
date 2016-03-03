@@ -14,6 +14,7 @@ use Cocur\Slugify\Slugify;
 class ZnxImportCommand extends ContainerAwareCommand
 {
 
+    /* @todo a deplacer dans les sources  */
     protected $merchantCategoryName = array(
                                             'znx' => 'MerchantProductCategoryPath'
                                       );

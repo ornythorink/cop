@@ -22,13 +22,18 @@ class ProductsRepository extends EntityRepository
              MATCH_AGAINST(p.name,p.description,p.categoryMerchant , :term 'IN  BOOLEAN MODE')
              as Relevance")
             ->where("MATCH_AGAINST (p.name,p.description,p.categoryMerchant, :term2 'IN  BOOLEAN MODE')  > 0.8")
-            ->setParameter("term", "chaussures")
-            ->setParameter("term2", "chaussures")
+            ->setParameter("term",  $term)
+            ->setParameter("term2", $term)
             ->orderBy('Relevance')->getQuery();
 
         $set = $query->getResult();
+
+        $data = new \ArrayIterator;
+
         foreach($set as $s){
             $s[0]->setRelevance($s['Relevance']);
+            $s[0]->setPriceFilter($s[0]->getPrice());
+            $s[0]->setBrandFilter($s[0]->getBrand());
             $data[] = $s[0];
         }
 

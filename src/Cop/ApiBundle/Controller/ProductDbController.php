@@ -20,6 +20,8 @@ class ProductDbController extends Controller
         $locale = $request->getLocale();
 
         $em = $this->getDoctrine()->getManager();
+
+        /* @var  \Cop\DataStoreBundle\Entity\ProductsRepository $repoProducts */
         $repoProducts = $em->getRepository('Cop\DataStoreBundle\Entity\Products');
         $result = $repoProducts->findLatestForHome($search, $locale);
 

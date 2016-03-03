@@ -25,14 +25,14 @@ class HomeController extends Controller
         $client = new Client();
 
         $response = $client
-            //->get('http://163.172.129.160/app_dev.php/home/products/znx/db/fr/chaussures')
-            ->get('http://www.ornythorink.ovh/app_dev.php/home/products/sdc/api/fr/')
+            ->get('http://163.172.129.160/app_dev.php/home/products/znx/db/fr/chaussures')
+            //->get('http://www.ornythorink.ovh/app_dev.php/home/products/sdc/api/fr/')
             ->getBody()
             ->getContents();
 
         $produits = unserialize(json_decode($response));
 
-        $form = $this->createFormBuilder()
+         $form = $this->createFormBuilder()
             ->add('query', 'text', array(
                     'attr' => array(
                         'placeholder' => 'Rechercher ...',
@@ -40,7 +40,7 @@ class HomeController extends Controller
                     ))
             )->getForm();
 
-        $adapter = new ArrayAdapter($produits);
+        $adapter = new ArrayAdapter($produits->getArrayCopy());
         $pagerfanta = new Pagerfanta($adapter);
         $pagerfanta->setMaxPerPage(16); // 10 by default
         $maxPerPage = $pagerfanta->getMaxPerPage(50);
@@ -50,8 +50,6 @@ class HomeController extends Controller
         $currentPageResults = $pagerfanta->getCurrentPageResults();
         $pagerfanta->getNbPages();
         $pagerfanta->haveToPaginate();
-
-
 
         return $this->render('CopHomeBundle:Default:index.html.twig',
         array(

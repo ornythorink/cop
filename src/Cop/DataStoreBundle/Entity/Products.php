@@ -36,23 +36,6 @@ class Products
     private $id_api;
 
     /**
-     * @return string
-     */
-    public function getIdApi()
-    {
-        return $this->id_api;
-    }
-
-    /**
-     * @param string $id_api
-     */
-    public function setIdApi($id_api)
-    {
-        $this->id_api = $id_api;
-    }
-
-
-    /**
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
@@ -133,23 +116,6 @@ class Products
     private $sourceType;
 
     /**
-     * @return string
-     */
-    public function getSourceType()
-    {
-        return $this->sourceType;
-    }
-
-    /**
-     * @param string $sourceType
-     */
-    public function setSourceType($sourceType)
-    {
-        $this->sourceType = $sourceType;
-    }
-
-
-    /**
      * @var string
      *
      * @ORM\Column(name="program", type="string", nullable=true, length=255)
@@ -225,6 +191,21 @@ class Products
      */
     private $relevance;
 
+
+    /**
+     * @var array
+     *
+     */
+    private $brandFilter;
+
+    /**
+     * @var array
+     *
+     */
+    private $priceFilter;
+
+
+
     /**
      * @return text
      */
@@ -232,6 +213,7 @@ class Products
     {
         return $this->relevance;
     }
+
 
     /**
      * @param text $relevance
@@ -276,6 +258,38 @@ class Products
     }
 
     /**
+     * @return array
+     */
+    public function getBrandFilter()
+    {
+        return $this->brandFilter;
+    }
+
+    /**
+     * @param array $brandFilter
+     */
+    public function setBrandFilter($brandFilter)
+    {
+        $this->brandFilter[] = $brandFilter;
+    }
+
+    /**
+     * @return array
+     */
+    public function getPriceFilter()
+    {
+        return $this->priceFilter;
+    }
+
+    /**
+     * @param array $priceFilter
+     */
+    public function setPriceFilter($priceFilter)
+    {
+        $this->priceFilter[] = $priceFilter;
+    }
+
+    /**
      * Get id
      *
      * @return integer 
@@ -297,6 +311,42 @@ class Products
 
         return $this;
     }
+
+    /**
+     * @return string
+     */
+    public function getSourceType()
+    {
+        return $this->sourceType;
+    }
+
+    /**
+     * @param string $sourceType
+     */
+    public function setSourceType($sourceType)
+    {
+        $this->sourceType = $sourceType;
+    }
+
+
+    /**
+     * @return string
+     */
+    public function getIdApi()
+    {
+        return $this->id_api;
+    }
+
+    /**
+     * @param string $id_api
+     */
+    public function setIdApi($id_api)
+    {
+        $this->id_api = $id_api;
+    }
+
+
+
 
     /**
      * Set name

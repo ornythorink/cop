@@ -15,10 +15,11 @@ class HomeController extends Controller
     /**
      * Home action
      *
-     * @Route("/{_locale}/home")
-     *
+     * @Route("/{_locale}/home/{page}")
+     * requirements={"page" = "\d+","_locale" = "%app.locales%"},
+     * defaults={"page" = "1","_locale" = "fr"})
      */
-    public function indexAction(Request $request)
+    public function indexAction(Request $request, $page = 1)
     {
         $locale = $request->getLocale();
 
@@ -44,13 +45,21 @@ class HomeController extends Controller
         $adapter = new ArrayAdapter($produits->getArrayCopy());
         $pagerfanta = new Pagerfanta($adapter);
         $pagerfanta->setMaxPerPage(16); // 10 by default
-        $maxPerPage = $pagerfanta->getMaxPerPage(50);
-        $pagerfanta->setCurrentPage(1); // 1 by default
+        $maxPerPage = $pagerfanta->getMaxPerPage(10);
+        $pagerfanta->setCurrentPage($page); // 1 by default
         $currentPage = $pagerfanta->getCurrentPage();
         $nbResults = $pagerfanta->getNbResults();
         $currentPageResults = $pagerfanta->getCurrentPageResults();
         $pagerfanta->getNbPages();
         $pagerfanta->haveToPaginate();
+
+
+        if (true == $pagerfanta->haveToPaginate()) {
+            $sliceProducts = array_chunk($produits->getArrayCopy(), 10);
+            $produits = $sliceProducts[$page - 1];
+        }
+
+
 
         return $this->render('CopHomeBundle:Default:index.html.twig',
         array(

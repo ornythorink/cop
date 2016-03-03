@@ -5,9 +5,9 @@ namespace Cop\HomeBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
+use GuzzleHttp\Client;
 use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
-use GuzzleHttp\Client;
 
 
 class HomeController extends Controller
@@ -22,17 +22,28 @@ class HomeController extends Controller
     {
         $locale = $request->getLocale();
 
+        $client = new Client();
 
-        $client = new \GuzzleHttp\Client();
-        $response = $client->request('GET', 'http://163.172.129.160/app_dev.php/home/products/znx/db/fr/chaussures');
-        $body = $response->getBody() ;
-        $produits = unserialize(json_decode($body));
+        $response = $client
+            //->get('http://163.172.129.160/app_dev.php/home/products/znx/db/fr/chaussures')
+            ->get('http://www.ornythorink.ovh/app_dev.php/home/products/sdc/api/fr/')
+            ->getBody()
+            ->getContents();
 
+        $produits = unserialize(json_decode($response));
+
+        $form = $this->createFormBuilder()
+            ->add('query', 'text', array(
+                    'attr' => array(
+                        'placeholder' => 'Rechercher ...',
+                        'class' => 'form-control',
+                    ))
+            )->getForm();
 
         $adapter = new ArrayAdapter($produits);
         $pagerfanta = new Pagerfanta($adapter);
         $pagerfanta->setMaxPerPage(16); // 10 by default
-        $maxPerPage = $pagerfanta->getMaxPerPage(20);
+        $maxPerPage = $pagerfanta->getMaxPerPage(50);
         $pagerfanta->setCurrentPage(1); // 1 by default
         $currentPage = $pagerfanta->getCurrentPage();
         $nbResults = $pagerfanta->getNbResults();
@@ -41,14 +52,18 @@ class HomeController extends Controller
         $pagerfanta->haveToPaginate();
 
 
+
         return $this->render('CopHomeBundle:Default:index.html.twig',
         array(
             'items' => $produits,
-            'pagination' => $pagerfanta,
+            'form' => $form->createView(),
             'brandFilter' => array(),
             'priceFilter' => array(),
+            'pagination' => $pagerfanta,
         ));
 
 
     }
+
+
 }

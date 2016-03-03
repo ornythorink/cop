@@ -27,6 +27,11 @@ class appProdUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirecta
         $context = $this->context;
         $request = $this->request;
 
+        // cop_api_znxdb_index
+        if (0 === strpos($pathinfo, '/home/products/znx/db/fr') && preg_match('#^/home/products/znx/db/fr/(?P<search>[^/]++)$#s', $pathinfo, $matches)) {
+            return $this->mergeDefaults(array_replace($matches, array('_route' => 'cop_api_znxdb_index')), array (  '_controller' => 'Cop\\ApiBundle\\Controller\\ZnxDbController::indexAction',));
+        }
+
         // default
         if (rtrim($pathinfo, '/') === '') {
             if (substr($pathinfo, -1) !== '/') {
@@ -34,6 +39,11 @@ class appProdUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirecta
             }
 
             return array (  '_controller' => 'AppBundle\\Controller\\DefaultController::indexAction',  '_route' => 'default',);
+        }
+
+        // cop_home_home_index
+        if (preg_match('#^/(?P<_locale>[^/]++)/home$#s', $pathinfo, $matches)) {
+            return $this->mergeDefaults(array_replace($matches, array('_route' => 'cop_home_home_index')), array (  '_controller' => 'Cop\\HomeBundle\\Controller\\HomeController::indexAction',));
         }
 
         throw 0 < count($allow) ? new MethodNotAllowedException(array_unique($allow)) : new ResourceNotFoundException();

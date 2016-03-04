@@ -22,7 +22,8 @@
         "symfony/serializer": "^2.8",
         "guzzlehttp/guzzle": "~6.0",
         "white-october/pagerfanta-bundle": "^1.0",
-        "fabpot/goutte": "^1.0"
+        "fabpot/goutte": "^1.0",
+        "react/react": "^0.4.2"
     },
     "require-dev": {
         "sensio/generator-bundle": "~3.0",

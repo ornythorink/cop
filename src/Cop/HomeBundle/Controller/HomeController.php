@@ -26,13 +26,11 @@ class HomeController extends Controller
         $client = new Client();
 
         $response = $client
-            ->get('http://163.172.129.160/app_dev.php/home/products/znx/db/fr/chaussures')
-            //->get('http://www.ornythorink.ovh/app_dev.php/home/products/sdc/api/fr/')
+            ->get('http://163.172.129.160/app_dev.php/home/products/bottes')
             ->getBody()
             ->getContents();
 
-        $produits = unserialize(json_decode($response));
-
+         $produits = unserialize(json_decode($response));
 
          $form = $this->createFormBuilder()
             ->add('query', 'text', array(

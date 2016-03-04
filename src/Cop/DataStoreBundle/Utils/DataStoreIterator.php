@@ -15,13 +15,13 @@ class DataStoreIterator extends  \ArrayIterator
      * @var array
      *
      */
-    private $brandFilter;
+    private $brandFilter = array();
 
     /**
      * @var array
      *
      */
-    private $priceFilter;
+    private $priceFilter = array();
 
 
     /**
@@ -39,6 +39,16 @@ class DataStoreIterator extends  \ArrayIterator
     public function setBrandFilter($brandFilter)
     {
         $this->brandFilter[] = $brandFilter;
+    }
+
+    public function merge( DataStoreIterator $outerIterator)
+    {
+        foreach($outerIterator as $item){
+            $this->append($item);
+        }
+
+        $this->brandFilter = array_merge($this->brandFilter,$outerIterator->getBrandFilter());
+        $this->priceFilter = array_merge($this->priceFilter,$outerIterator->getPriceFilter());
     }
 
     /**

@@ -32,8 +32,6 @@ class ProductsRepository extends EntityRepository
         $data = array();
 
         $it = new DataStoreIterator($data);
-        $it = new DataStoreIterator($data);
-
 
         foreach($set as $s){
             $s[0]->setRelevance($s['Relevance']);

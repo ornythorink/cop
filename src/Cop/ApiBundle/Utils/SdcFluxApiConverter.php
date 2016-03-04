@@ -3,16 +3,17 @@ namespace Cop\ApiBundle\Utils;
 
 use Symfony\Component\DomCrawler\Crawler;
 use Cop\DataStoreBundle\Entity\Products;
+use Cop\DataStoreBundle\Utils\DataStoreIterator;
 
 
 class SdcFluxApiConverter
 {
 	private $flux;
-	private $itemsArray = array();
-	
+
 	public function __construct($flux)
 	{
 		$this->flux = $flux;
+        $this->it = new DataStoreIterator(array());
 	}
 	
 	public function convertFlux()
@@ -56,7 +57,7 @@ class SdcFluxApiConverter
 	
 	public function getItemsArray()
 	{
-    	return $this->itemsArray;
+    	return $this->it;
 	}
 	
 	public function createItem($key, array $params)
@@ -125,7 +126,12 @@ class SdcFluxApiConverter
             $item->setIdApi($params['apiid']);
         }
 
-		$this->itemsArray[$key] = $item;
+        $this->it->setBrandFilter($params['brand']);
+        $this->it->setPriceFilter($params['price']);
+
+        $this->it->append($item);
+
+
 	}
 
 }

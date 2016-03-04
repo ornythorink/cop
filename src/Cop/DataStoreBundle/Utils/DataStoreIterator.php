@@ -4,7 +4,7 @@ namespace Cop\DataStoreBundle\Utils;
 
 
 
-class DataStoreIterator extends  \ArrayIterator
+class DataStoreIterator extends  \ArrayObject
 {
 
     public function __construct($data){
@@ -32,16 +32,32 @@ class DataStoreIterator extends  \ArrayIterator
         return $this->brandFilter;
     }
 
+    public function generateBrandFilter()
+    {
+        $filter = $this->getBrandFilter();
+        usort($filter, function ($a, $b) {
+            if ($a['weight'] == $b['weight']) {
+                return 0;
+            } else if ($a['weight'] > $b['weight']) {
+                return -1;
+            } else {
+                return 1;
+            }
+        });
+        $brands = array_chunk($filter, 6, TRUE);
+        return $brands[0];
+    }
+
 
     /**
      * @param array $brandFilter
      */
     public function setBrandFilter($brandFilter)
     {
-        $this->brandFilter[] = $brandFilter;
+        $this->brandFilter = $brandFilter;
     }
 
-    public function merge( DataStoreIterator $outerIterator)
+    public function merge( \Cop\DataStoreBundle\Utils\DataStoreIterator $outerIterator)
     {
         foreach($outerIterator as $item){
             $this->append($item);
@@ -67,5 +83,21 @@ class DataStoreIterator extends  \ArrayIterator
         $this->priceFilter[] = $priceFilter;
     }
 
+
+    public function generatePriceFilter()
+    {
+        $priceRange = array();
+        $maxPrice = max($this->getPriceFilter());
+        $minPrice = min($this->getPriceFilter());
+        $gap      = round($maxPrice * 0.20);
+        for($i = (float) $minPrice; $i<=$maxPrice; $i += $gap)
+        {
+            $minBorne = $i;
+            $maxBorne = $i + $gap;
+
+            $priceRange[$minBorne . '|' . $maxBorne] = $minBorne . '€ - ' . $maxBorne. '€';
+        }
+        return $priceRange;
+    }
 
 }

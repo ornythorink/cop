@@ -33,6 +33,8 @@ use GuzzleHttp\Promise;
             // Wait on all of the requests to complete
             $results = Promise\unwrap([$loremPromise, $randomPromise]);
 
+            /* @var \Cop\DataStoreBundle\Utils\DataStoreBundle  $it1 */
+            /* @var \Cop\DataStoreBundle\Utils\DataStoreBundle  $it2 */
             $it1 = unserialize(json_decode($results[0]->getBody()->getContents()));
             $it2 = unserialize(json_decode($results[1]->getBody()->getContents()));
 

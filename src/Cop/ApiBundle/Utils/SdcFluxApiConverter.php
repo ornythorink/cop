@@ -9,6 +9,7 @@ use Cop\DataStoreBundle\Utils\DataStoreIterator;
 class SdcFluxApiConverter
 {
 	private $flux;
+    private $brandFilter = array();
 
 	public function __construct($flux)
 	{
@@ -126,13 +127,27 @@ class SdcFluxApiConverter
             $item->setIdApi($params['apiid']);
         }
 
-        $this->it->setBrandFilter($params['brand']);
+        $this->it->setBrandFilter($this->defineBrandFilter($params['brand']));
         $this->it->setPriceFilter($params['price']);
 
         $this->it->append($item);
 
-
 	}
+
+    public function defineBrandFilter($brand){
+        if($brand != "" && $brand != null){
+            if(isset( $this->brandFilter[strtolower($brand)])){
+                $this->brandFilter[strtolower($brand)]['weight'] =
+                    $this->brandFilter[strtolower($brand)]['weight'] + 1;
+                $this->brandFilter[strtolower($brand)]['name']   = $brand;
+            } else {
+                $this->brandFilter[strtolower($brand)]['name']   = $brand;
+                $this->brandFilter[strtolower($brand)]['weight'] = 1;
+            }
+        }
+
+        return $this->brandFilter;
+    }
 
 }
 

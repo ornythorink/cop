@@ -15,6 +15,9 @@ use Cop\DataStoreBundle\Utils\DataStoreIterator;
  */
 class ProductsRepository extends EntityRepository
 {
+
+    protected $brandFilter;
+
     public function findLatestForHome($term, $locale)
     {
         $qb =  $this->createQueryBuilder('p');
@@ -37,13 +40,28 @@ class ProductsRepository extends EntityRepository
             $s[0]->setRelevance($s['Relevance']);
             $s[0]->setOffers($s[0]);
             $it->setPriceFilter($s[0]->getPrice());
-            $it->setBrandFilter($s[0]->getBrand());
+            $it->setBrandFilter($this->defineBrandFilter($s[0]->getBrand()));
             $it->append($s[0]);
-        }
 
+
+        }
         return $it;
     }
 
+    public function defineBrandFilter($brand){
+        if($brand != "" && $brand != null){
+            if(isset( $this->brandFilter[strtolower($brand)])){
+                $this->brandFilter[strtolower($brand)]['weight'] =
+                    $this->brandFilter[strtolower($brand)]['weight'] + 1;
+                $this->brandFilter[strtolower($brand)]['name']   = $brand;
+            } else {
+                $this->brandFilter[strtolower($brand)]['name']   = $brand;
+                $this->brandFilter[strtolower($brand)]['weight'] = 1;
+            }
+        }
+
+        return $this->brandFilter;
+    }
 
 
     public function searchProducts($term, $locale)

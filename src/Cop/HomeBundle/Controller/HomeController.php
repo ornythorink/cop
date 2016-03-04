@@ -22,24 +22,38 @@ class HomeController extends Controller
     public function indexAction(Request $request, $page = 1)
     {
         $locale = $request->getLocale();
-
         $client = new Client();
-
         $response = $client
             ->get('http://163.172.129.160/app_dev.php/home/products/bottes')
             ->getBody()
             ->getContents();
 
-         $produits = unserialize(json_decode($response));
+        $produits = unserialize(json_decode($response));
 
-         $form = $this->createFormBuilder()
-            ->add('query', 'text', array(
-                    'attr' => array(
+        return $this->render('CopHomeBundle:Default:index.html.twig',
+        array(
+            'items' => $produits,
+            'form' => $this->generateForm()->createView(),
+            'brandFilter' => $produits->generateBrandFilter(),
+            'priceFilter' => $produits->generatePriceFilter(),
+            'pagination' => $this->paginate($produits, $page),
+        ));
+    }
+
+    private function generateForm()
+    {
+        return
+            $this->createFormBuilder()
+                  ->add('query', 'text',
+            array( 'attr' => array(
                         'placeholder' => 'Rechercher ...',
                         'class' => 'form-control',
                     ))
             )->getForm();
+    }
 
+    private function paginate( $produits, $page)
+    {
         $adapter = new ArrayAdapter($produits->getArrayCopy());
         $pagerfanta = new Pagerfanta($adapter);
         $pagerfanta->setMaxPerPage(16); // 10 by default
@@ -57,19 +71,7 @@ class HomeController extends Controller
             $produits = $sliceProducts[$page - 1];
         }
 
-
-
-        return $this->render('CopHomeBundle:Default:index.html.twig',
-        array(
-            'items' => $produits,
-            'form' => $form->createView(),
-            'brandFilter' => array(),
-            'priceFilter' => array(),
-            'pagination' => $pagerfanta,
-        ));
-
-
+        return $pagerfanta;
     }
-
 
 }

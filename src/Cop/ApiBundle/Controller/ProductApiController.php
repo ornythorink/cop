@@ -14,6 +14,7 @@ class ProductApiController extends Controller
 {
     private $api;
 
+
     private static $_request = '/publisher/3.0/rest/GeneralSearch';
     private static $_apiKey  = "6f8d716b-658d-401a-9f1c-6c37705138fb";
     private static $_trackingId  = "8059727";

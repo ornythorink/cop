@@ -4,7 +4,7 @@ namespace Cop\DataStoreBundle\Utils;
 
 
 
-class DataStoreIterator extends  \ArrayObject
+class DataStoreIterator  extends  \ArrayObject
 {
 
     public function __construct($data){
@@ -34,6 +34,7 @@ class DataStoreIterator extends  \ArrayObject
 
     public function generateBrandFilter()
     {
+
         $filter = $this->getBrandFilter();
         usort($filter, function ($a, $b) {
             if ($a['weight'] == $b['weight']) {

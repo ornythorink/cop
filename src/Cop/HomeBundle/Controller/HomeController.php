@@ -29,14 +29,23 @@ class HomeController extends Controller
             ->getContents();
 
         $produits = unserialize(json_decode($response));
+        $brandFilter = $produits->generateBrandFilter();
+        $priceFilter = $produits->generatePriceFilter();
+
+        $pagerfanta = $this->paginate($produits, $page);
+        if (true == $pagerfanta->haveToPaginate()) {
+            $sliceProducts = array_chunk($produits->getArrayCopy(), 10);
+            $produits = $sliceProducts[$page - 1];
+        }
+
 
         return $this->render('CopHomeBundle:Default:index.html.twig',
         array(
             'items' => $produits,
             'form' => $this->generateForm()->createView(),
-            'brandFilter' => $produits->generateBrandFilter(),
-            'priceFilter' => $produits->generatePriceFilter(),
-            'pagination' => $this->paginate($produits, $page),
+            'brandFilter' => $brandFilter,
+            'priceFilter' => $priceFilter,
+            'pagination' => $pagerfanta,
         ));
     }
 
@@ -64,12 +73,6 @@ class HomeController extends Controller
         $currentPageResults = $pagerfanta->getCurrentPageResults();
         $pagerfanta->getNbPages();
         $pagerfanta->haveToPaginate();
-
-
-        if (true == $pagerfanta->haveToPaginate()) {
-            $sliceProducts = array_chunk($produits->getArrayCopy(), 10);
-            $produits = $sliceProducts[$page - 1];
-        }
 
         return $pagerfanta;
     }

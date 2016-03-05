@@ -4219,5 +4219,53 @@
             "serialization",
             "xml"
         ]
+    },
+    {
+        "name": "devtime/backbone-bundle",
+        "version": "v1.0.0",
+        "version_normalized": "1.0.0.0",
+        "target-dir": "Devtime/BackboneBundle",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/gigo6000/DevtimeBackboneBundle.git",
+            "reference": "2f347138e6b28cc009d4aed8528d03f77f01e0d2"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/gigo6000/DevtimeBackboneBundle/zipball/2f347138e6b28cc009d4aed8528d03f77f01e0d2",
+            "reference": "2f347138e6b28cc009d4aed8528d03f77f01e0d2",
+            "shasum": ""
+        },
+        "require": {
+            "symfony/console": ">=2.1.1",
+            "symfony/finder": ">=2.1.1",
+            "symfony/framework-bundle": ">=2.1.1"
+        },
+        "time": "2013-03-21 02:44:56",
+        "type": "symfony-bundle",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Devtime\\BackboneBundle": ""
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Carlos Mafla",
+                "email": "gigo6000@hotmail.com"
+            }
+        ],
+        "description": "Easily setup and use backbone.js with Symfony2",
+        "homepage": "http://github.com/gigo6000/DevtimeBackboneBundle",
+        "keywords": [
+            "Symfony2",
+            "backbone",
+            "backbone.js",
+            "underscore"
+        ]
     }
 ]

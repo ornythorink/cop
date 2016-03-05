@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "140605f01e39914188faf52b8e643a46",
-    "content-hash": "3860f5e87215831181548cfee1584fb0",
+    "hash": "1217000a3c387278a7d7cc02dd6549b7",
+    "content-hash": "8894def0f69dd097cfaceb97b7cef4af",
     "packages": [
         {
             "name": "cocur/slugify",
@@ -69,6 +69,52 @@
                 "slugify"
             ],
             "time": "2016-02-11 09:53:46"
+        },
+        {
+            "name": "devtime/backbone-bundle",
+            "version": "v1.0.0",
+            "target-dir": "Devtime/BackboneBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/gigo6000/DevtimeBackboneBundle.git",
+                "reference": "2f347138e6b28cc009d4aed8528d03f77f01e0d2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/gigo6000/DevtimeBackboneBundle/zipball/2f347138e6b28cc009d4aed8528d03f77f01e0d2",
+                "reference": "2f347138e6b28cc009d4aed8528d03f77f01e0d2",
+                "shasum": ""
+            },
+            "require": {
+                "symfony/console": ">=2.1.1",
+                "symfony/finder": ">=2.1.1",
+                "symfony/framework-bundle": ">=2.1.1"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-0": {
+                    "Devtime\\BackboneBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Carlos Mafla",
+                    "email": "gigo6000@hotmail.com"
+                }
+            ],
+            "description": "Easily setup and use backbone.js with Symfony2",
+            "homepage": "http://github.com/gigo6000/DevtimeBackboneBundle",
+            "keywords": [
+                "Symfony2",
+                "backbone",
+                "backbone.js",
+                "underscore"
+            ],
+            "time": "2013-03-21 02:44:56"
         },
         {
             "name": "doctrine/annotations",

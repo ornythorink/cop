@@ -1,0 +1,5 @@
+#src/Obtao/UserBundle/Resources/config/routing_rest.yml
+product_db :
+  type: rest
+  resource:     "CopApiBundle:ProductDbRest"
+  name_prefix:  api_

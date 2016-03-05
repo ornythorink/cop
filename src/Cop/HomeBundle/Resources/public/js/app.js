@@ -4,8 +4,19 @@
 
     var ProfileList = Backbone.Collection.extend({
         model: Profile,
-        url: 'http://163.172.129.160/app_dev.php/api/products/bottes/db'
+        url: 'http://163.172.129.160/app_dev.php/api/products/bottes/db',
+        parse: function(response){
+             var hotels = _.map(response, function (itemArray, index) {
+                return {
+                    name: itemArray[0].name,
+                    id: index + 1};
+            });
+            console.log(hotels);
+            return hotels;
+        }
     });
+    // thanks to http://stackoverflow.com/questions/17392713/backbone-parse-nested-json
+
 
     var ProfileView = Backbone.View.extend({
         el: "#profiles",

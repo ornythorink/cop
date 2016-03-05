@@ -89,11 +89,6 @@ fos_user:
     firewall_name: main
     user_class: Cop\DataStoreBundle\Entity\User
 
-jms_serializer:
-    visitors:
-        json:
-            options: JSON_PRETTY_PRINT
-
 
 fos_rest:
     param_fetcher_listener: true

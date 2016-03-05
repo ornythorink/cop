@@ -38,7 +38,6 @@ class HomeController extends Controller
             $produits = $sliceProducts[$page - 1];
         }
 
-
         return $this->render('CopHomeBundle:Default:index.html.twig',
         array(
             'items' => $produits,

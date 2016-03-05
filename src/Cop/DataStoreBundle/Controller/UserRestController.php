@@ -9,7 +9,9 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 class UserRestController extends Controller
 {
     public function getUserAction($username){
-        $user = $this->getDoctrine()->getRepository('Cop\DataStoreBundle\Entity\User')->findOneByName($username);
+        $user = $this->getDoctrine()
+            ->getRepository('Cop\DataStoreBundle\Entity\User')
+            ->findOneByName($username);
         if(!is_object($user)){
             throw $this->createNotFoundException();
         }

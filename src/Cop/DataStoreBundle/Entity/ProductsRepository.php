@@ -51,12 +51,11 @@ class ProductsRepository extends EntityRepository
         $qb =  $this->createQueryBuilder('p');
         $query =
             $qb->select("p,
-             MATCH_AGAINST(p.name,p.description,p.categoryMerchant , :term 'IN  BOOLEAN MODE')
-             as Relevance")
+             MATCH_AGAINST(p.name,p.description,p.categoryMerchant , :term 'IN  BOOLEAN MODE')")
                 ->where("MATCH_AGAINST (p.name,p.description,p.categoryMerchant, :term2 'IN  BOOLEAN MODE')  > 0.8")
                 ->setParameter("term",  $term)
                 ->setParameter("term2", $term)
-                ->orderBy('Relevance')->getQuery();
+                ->getQuery();
 
         $result = $query->getResult();
 

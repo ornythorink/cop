@@ -21,7 +21,7 @@ class ProductHomeApiController extends Controller
 
     /**
 
-     * @Route("/home/products/sdc/api/fr/{search}/{page}", name="product_api"
+     * @Route("/home/products/sdc/api/fr/{search}/{page}", 
      * requirements={"page" = "\d+","_locale" = "%app.locales%"},
      * defaults={"page" = "1","_locale" = "fr"})
      */

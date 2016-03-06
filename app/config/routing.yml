@@ -6,26 +6,26 @@ rest :
 
 cop_categories:
     path: /{_locale}/category/{slug}/{page}
-    defaults: { _controller: CopCategoriesBundle:Categories:index  _locale: fr }
+    defaults: { _controller: CopCategoriesBundle:Categories:index , _locale: fr, page: 1  }
     requirements:
         _locale: "%app.locales%"
 
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"
 
-default:
+product_home:
     path: /{_locale}/home/{page}
-    defaults: { _controller: CopHomeBundle:Home:index,  _locale: fr }
+    defaults: { _controller: CopHomeBundle:Home:index,  _locale: fr, page: 1  }
     requirements:
         _locale: "%app.locales%"
 
-product_home:
+product_home_api:
     path:     /home/products/{search}
     defaults: { _controller: CopApiBundle:ProductHome:index }
 
 product_api:
     path:     /home/products/sdc/api/{_locale}/{search}/{page}
-    defaults: { _controller: CopApiBundle:ProductHomeApi:index,  _locale: fr }
+    defaults: { _controller: CopApiBundle:ProductHomeApi:index,  _locale: fr, page: 1  }
     requirements:
         _locale: "%app.locales%"
 

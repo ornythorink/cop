@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 class ProductDbController extends Controller
 {
     /**
-     * @Route("/home/products/znx/db/fr/{search}")
+     * @Route("/home/products/znx/db/fr/{search}", name="product_db")
      */
     public function indexAction(Request $request)
     {

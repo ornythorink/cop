@@ -15,7 +15,7 @@ class HomeController extends Controller
     /**
      * Home action
      *
-     * @Route("/{_locale}/home/{page}")
+     * @Route("/{_locale}/home/{page}" )
      * requirements={"page" = "\d+","_locale" = "%app.locales%"},
      * defaults={"page" = "1","_locale" = "fr"})
      */

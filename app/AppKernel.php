@@ -22,7 +22,10 @@ class AppKernel extends Kernel
             new Cop\ImportBundle\CopImportBundle(),
             new Cop\ApiBundle\CopApiBundle(),
             new WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle(),
-
+            new \JMS\SerializerBundle\JMSSerializerBundle(),
+            new FOS\RestBundle\FOSRestBundle(),
+            new FOS\UserBundle\FOSUserBundle(),
+            new Devtime\BackboneBundle\DevtimeBackboneBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {

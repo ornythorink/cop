@@ -1,25 +1,35 @@
-cop_api:
-    resource: "@CopApiBundle/Controller/"
-    type:     annotation
-    prefix:   /
 
-cop_common:
-    resource: "@CopCommonBundle/Controller/"
-    type:     annotation
-    prefix:   /
 
-cop_data_store:
-    resource: "@CopDataStoreBundle/Controller/"
-    type:     annotation
-    prefix:   /
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+
+default:
+    path: /{_locale}/home/{page}
+    defaults: { _controller: CopHomeBundle:Home:index }
+
+product_home:
+    path:     /home/products/{search}
+    defaults: { _controller: CopApiBundle:ProductHome:index }
+
+product_api:
+    path:     /home/products/sdc/api/fr/
+    defaults: { _controller: CopApiBundle:ProductApi:index }
+
+product_db:
+    path:     /home/products/znx/db/fr/{search}
+    defaults: { _controller: CopApiBundle:ProductDb:index }
+
 
 cop_import:
     resource: "@CopImportBundle/Controller/"
     type:     annotation
-    prefix:   /
 
 app:
     resource: "@AppBundle/Controller/"
+    type:     annotation
+
+cop_common:
+    resource: "@CopCommonBundle/Controller/"
     type:     annotation
 
 app_homepage_translated:

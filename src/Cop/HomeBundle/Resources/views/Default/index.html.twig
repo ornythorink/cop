@@ -128,7 +128,26 @@
         </div><!--/center-->
         <br/>
 
+        {#<div id="products"></div>#}
+
+        {#<script id="productsTemplate" type="text/template">
+            {#<div class="product">#}
+                {#<div class="info">#}
+                    {#<div class="name"><%= name %></div>#}
+                {#</div>#}
+            {#</div>#}
+        {#</script>#}
+
     </div><!--/container-fluid-->
+    {% block javascripts %}
+        <script src="{{ asset('bundles/cophome/js/jquery.min.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('bundles/cophome/js/underscore.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('bundles/cophome/js/backbone.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('bundles/cophome/js/app.js') }}" type="text/javascript"></script>
+
+    {% endblock %}
 
 
 {% endblock %}
+
+

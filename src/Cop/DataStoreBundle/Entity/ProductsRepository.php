@@ -42,11 +42,28 @@ class ProductsRepository extends EntityRepository
             $it->setPriceFilter($s[0]->getPrice());
             $it->setBrandFilter($this->defineBrandFilter($s[0]->getBrand()));
             $it->append($s[0]);
-
-
         }
         return $it;
     }
+
+    public function findRestLatestForHome($term, $locale= "fr")
+    {
+        $qb =  $this->createQueryBuilder('p');
+        $query =
+            $qb->select("p,
+             MATCH_AGAINST(p.name,p.description,p.categoryMerchant , :term 'IN  BOOLEAN MODE')")
+                ->where("MATCH_AGAINST (p.name,p.description,p.categoryMerchant, :term2 'IN  BOOLEAN MODE')  > 0.8")
+                ->setParameter("term",  $term)
+                ->setParameter("term2", $term)
+                ->getQuery();
+
+        $result = $query->getResult();
+
+        return $result;
+    }
+
+
+
 
     public function defineBrandFilter($brand){
         if($brand != "" && $brand != null){

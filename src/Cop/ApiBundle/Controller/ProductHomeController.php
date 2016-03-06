@@ -15,7 +15,7 @@ use GuzzleHttp\Promise;
     class ProductHomeController extends Controller
     {
         /**
-         * @Route("/home/products/{search}")
+         * @Route("/home/products/{search}", name="product_home")
          */
         public function indexAction(Request $request)
         {

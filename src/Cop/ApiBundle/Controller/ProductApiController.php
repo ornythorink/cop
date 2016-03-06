@@ -21,7 +21,7 @@ class ProductApiController extends Controller
 
     /**
      * #####Route("/home/products/sdc/api/fr/{search}/{agent}/{ip}/{page}")###
-     * @Route("/home/products/sdc/api/fr/")
+     * @Route("/home/products/sdc/api/fr/", name="product_api" )
      */
     public function indexAction(Request $request)
     {

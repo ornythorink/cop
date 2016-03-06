@@ -1,24 +1,39 @@
+#REST
+rest :
+  type: rest
+  resource: "routing_rest.yml"
+  prefix : /api
 
+cop_categories:
+    path: /{_locale}/category/{slug}/{page}
+    defaults: { _controller: CopCategoriesBundle:Categories:index  _locale: fr }
+    requirements:
+        _locale: "%app.locales%"
 
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"
 
 default:
     path: /{_locale}/home/{page}
-    defaults: { _controller: CopHomeBundle:Home:index }
+    defaults: { _controller: CopHomeBundle:Home:index,  _locale: fr }
+    requirements:
+        _locale: "%app.locales%"
 
 product_home:
     path:     /home/products/{search}
     defaults: { _controller: CopApiBundle:ProductHome:index }
 
 product_api:
-    path:     /home/products/sdc/api/fr/
-    defaults: { _controller: CopApiBundle:ProductApi:index }
+    path:     /home/products/sdc/api/{_locale}/{search}/{page}
+    defaults: { _controller: CopApiBundle:ProductHomeApi:index,  _locale: fr }
+    requirements:
+        _locale: "%app.locales%"
 
 product_db:
-    path:     /home/products/znx/db/fr/{search}
-    defaults: { _controller: CopApiBundle:ProductDb:index }
-
+    path:     /home/products/znx/db/{_locale}/{search}
+    defaults: { _controller: CopApiBundle:ProductHomeDb:index,  _locale: fr }
+    requirements:
+        _locale: "%app.locales%"
 
 cop_import:
     resource: "@CopImportBundle/Controller/"

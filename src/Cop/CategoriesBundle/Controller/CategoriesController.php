@@ -1,6 +1,6 @@
 <?php
 
-namespace Cop\HomeBundle\Controller;
+namespace Cop\CategoriesBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -10,14 +10,34 @@ use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
 
 
-class HomeController extends Controller
+class CategoriesController extends Controller
 {
-    public function indexAction(Request $request, $page = 1)
+    /**
+     * Categories action
+     *
+     * @Route("/{_locale}/category/{slug}/{page}",
+     * name="app_categories_byslug",
+     * requirements={"page" = "\d+","_locale" = "%app.locales%"},
+     * defaults={"page" = "1","_locale" = "fr"})
+     *
+     */
+    public function indexAction($slug, Request $request, $page = 1)
     {
         $locale = $request->getLocale();
+
+
+        $em = $this->getDoctrine()->getManager();
+        $categoriesRepository = $em->getRepository('AppBundle:Categories');
+        $categorie = $categoriesRepository->findOneByCategoryslug($slug);
+
+        $term = $categorie->getTerm();
+        $label = $categorie->getNameCategorie();
+
+        $parent = $categoriesRepository->findRootCategoriesByChildSlug($slug);
+
         $client = new Client();
         $response = $client
-            ->get('http://163.172.129.160/app_dev.php/home/products/bottes')
+            ->get('http://163.172.129.160/app_dev.php/category/products/bottes')
             ->getBody()
             ->getContents();
 
@@ -41,6 +61,11 @@ class HomeController extends Controller
         ));
     }
 
+    /**
+     * generate for search
+     *
+     * @return \Symfony\Component\Form\Form
+     */
     private function generateForm()
     {
         return
@@ -53,6 +78,12 @@ class HomeController extends Controller
             )->getForm();
     }
 
+    /**
+     * @param $produits
+     * @param $page
+     *
+     * @return Pagerfanta
+     */
     private function paginate( $produits, $page)
     {
         $adapter = new ArrayAdapter($produits->getArrayCopy());

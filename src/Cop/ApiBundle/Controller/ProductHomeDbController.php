@@ -7,7 +7,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
-class ProductDbController extends Controller
+class ProductHomeDbController extends Controller
 {
     /**
      * @Route("/home/products/znx/db/fr/{search}", name="product_db")

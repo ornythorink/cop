@@ -10,7 +10,7 @@ use GuzzleHttp\Client;
 use Cop\ApiBundle\Utils\SdcFluxApiConverter;
 
 
-class ProductApiController extends Controller
+class ProductHomeApiController extends Controller
 {
     private $api;
 
@@ -20,16 +20,18 @@ class ProductApiController extends Controller
     private static $_trackingId  = "8059727";
 
     /**
-     * #####Route("/home/products/sdc/api/fr/{search}/{agent}/{ip}/{page}")###
-     * @Route("/home/products/sdc/api/fr/", name="product_api" )
+
+     * @Route("/home/products/sdc/api/fr/{search}/{page}", name="product_api"
+     * requirements={"page" = "\d+","_locale" = "%app.locales%"},
+     * defaults={"page" = "1","_locale" = "fr"})
      */
-    public function indexAction(Request $request)
+    public function indexAction(Request $request, $search)
     {
         /*@todo gerer les pages */
         $page = 1 ;
         $response = new JsonResponse();
 
-        $flux = $this->searchProducts($request);
+        $flux = $this->searchProducts($request, $search);
 
         $converter = new SdcFluxApiConverter($flux);
         $converter->convertFlux();
@@ -41,7 +43,7 @@ class ProductApiController extends Controller
         return $response;
     }
 
-    public function searchProducts($request)
+    public function searchProducts($request, $search)
     {
         $search = $request->get('search');
         $locale = $request->getLocale();

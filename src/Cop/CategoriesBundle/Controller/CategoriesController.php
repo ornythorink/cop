@@ -25,8 +25,9 @@ class CategoriesController extends Controller
     {
         $locale = $request->getLocale();
 
-
         $em = $this->getDoctrine()->getManager();
+
+        /* @var \Cop\DataStoreBundle\Entity\CategoriesRepository $categoriesRepository */
         $categoriesRepository = $em->getRepository('AppBundle:Categories');
         $categorie = $categoriesRepository->findOneByCategoryslug($slug);
 
@@ -37,7 +38,7 @@ class CategoriesController extends Controller
 
         $client = new Client();
         $response = $client
-            ->get('http://163.172.129.160/app_dev.php/category/products/bottes')
+            ->get('http://163.172.129.160/app_dev.php/fr/category/products/'. $term)
             ->getBody()
             ->getContents();
 

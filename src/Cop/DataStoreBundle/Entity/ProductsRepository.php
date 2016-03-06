@@ -46,6 +46,10 @@ class ProductsRepository extends EntityRepository
         return $it;
     }
 
+
+
+
+
     public function findRestLatestForHome($term, $locale= "fr")
     {
         $qb =  $this->createQueryBuilder('p');

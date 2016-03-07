@@ -14,9 +14,6 @@ use GuzzleHttp\Promise;
 
     class ProductCategoryController extends Controller
     {
-        /**
-         * @Route("/category/products/{search}", name="product_home")
-         */
         public function indexAction(Request $request)
         {
             $response = new JsonResponse();

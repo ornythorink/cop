@@ -34,24 +34,12 @@ class HomeController extends Controller
         return $this->render('CopHomeBundle:Default:index.html.twig',
         array(
             'items' => $produits,
-            'form' => $this->generateForm()->createView(),
             'brandFilter' => $brandFilter,
             'priceFilter' => $priceFilter,
             'pagination' => $pagerfanta,
         ));
     }
 
-    private function generateForm()
-    {
-        return
-            $this->createFormBuilder()
-                  ->add('query', 'text',
-            array( 'attr' => array(
-                        'placeholder' => 'Rechercher ...',
-                        'class' => 'form-control',
-                    ))
-            )->getForm();
-    }
 
     private function paginate( $produits, $page)
     {

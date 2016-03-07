@@ -4,6 +4,19 @@ rest :
   resource: "routing_rest.yml"
   prefix : /api
 
+
+cop_categories_db:
+    path: /{locale}/category/znx/db/{search}/{page}
+    defaults: { _controller: CopCategoriesBundle:Categories:index , _locale: fr, page: 1  }
+    requirements:
+        _locale: "%app.locales%"
+
+cop_categories_api:
+    path: /{locale}/category/znx/api/{search}/{page}
+    defaults: { _controller: CopCategoriesBundle:Categories:index , _locale: fr, page: 1  }
+    requirements:
+        _locale: "%app.locales%"
+
 cop_categories:
     path: /{_locale}/category/{slug}/{page}
     defaults: { _controller: CopCategoriesBundle:Categories:index , _locale: fr, page: 1  }

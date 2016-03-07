@@ -21,7 +21,7 @@
                         {% for item in categorie %}
                             {% if  item.idparent != 0 %}
                                 <li>
-                                    <a href=http://www.free.fr"" >{{ item.nameCategorie }} </a>
+                                    <a href={{ path('cop_categories', {'slug': item.categoryslug} ) }}" >{{ item.nameCategorie }} </a>
                                 </li>
                             {% endif %}
                         {% endfor %}
@@ -30,7 +30,7 @@
             {% endfor %}
         </ul>
         <div class="col-sm-3 col-md-3 pull-right">
-            <form method="POST" class="navbar-form" action="#" role="search">
+            <form method="POST" class="navbar-form" action="{{ path('cop_common_search_redirect') }}" role="search">
                 <div class="input-group">
                     {% block text_widget %}
                         {% set type = type|default('number') %}
@@ -41,7 +41,8 @@
                     {% endblock %}
                     {{ form_rest(form) }}
                     <div class="input-group-btn">
-                        <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                        <button class="btn btn-default" type="submit">
+                            <i class="glyphicon glyphicon-search"></i></button>
                     </div>
                 </div>
             </form>

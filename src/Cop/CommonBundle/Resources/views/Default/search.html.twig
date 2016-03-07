@@ -6,12 +6,10 @@
     'CopCommonBundle:Navbar:index'
     )) }}
 
-
     <div class="container-fluid">
         <!--  bandeau entete -->
 
         <!-- fin bandeau entet -->
-
         <!--left-->
         <div class="col-sm-2">
             <br/>
@@ -43,12 +41,13 @@
         </div><!--/left-->
 
         <!--center-->
-
         <div class="col-sm-8">
             <div class="row">
+
                 <div class="col-xs-12">
                     {% for item in items %}
-                        <div class="col-lg-3"  data-price="{{ item.price  }}" data-brand="{{  item.brand }}"  >
+                        <div class="col-lg-3"
+                             data-price="{{ item.price  }}" data-brand="{{  item.brand }}"  >
                             <div  id="{{ item.id }}"  class="box panel panel-default"  >
                                 <div class="panel-heading" style="background-color:white;color:grey;" >{{ item.name|unicode(item.sourceId)|truncate(60, true, '...') }}</div>
                                 <div class="cartouche panel-body">
@@ -128,18 +127,6 @@
             <hr>
         </div><!--/center-->
         <br/>
-
-        {#<div id="products"></div>#}
-
-        {#<script id="productsTemplate" type="text/template">
-            {#<div class="product">#}
-        {#<div class="info">#}
-        {#<div class="name"><%= name %></div>#}
-        {#</div>#}
-        {#</div>#}
-        {#</script>#}
-
-    </div><!--/container-fluid-->
 
 {% endblock %}
 

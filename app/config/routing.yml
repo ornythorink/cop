@@ -63,3 +63,7 @@ cop_common:
 app_homepage_translated:
     resource: "@CopHomeBundle/Controller/HomeController.php"
     type:     annotation
+
+app_api_by_term:
+    resource: "@CopCommonBundle/Controller/SearchController.php"
+    type:     annotation

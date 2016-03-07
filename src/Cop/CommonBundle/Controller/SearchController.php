@@ -1,19 +1,27 @@
 <?php
 
-namespace Cop\HomeBundle\Controller;
+namespace Cop\CommonBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Symfony\Component\HttpFoundation\Request;
 use GuzzleHttp\Client;
 use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
 
-
-class HomeController extends Controller
+class SearchController extends Controller
 {
-    public function indexAction(Request $request, $page = 1)
+
+    /**
+     * Search action
+     *
+     * @Route("/{_locale}/search/{term}/{{page}",
+     * requirements={"page" = "\d+","_locale" = "%app.locales%"},
+     * defaults={"page" = "1","_locale" = "fr"})
+     *
+     */
+    public function indexAction(Request $request, $term,  $page)
     {
         $locale = $request->getLocale();
         $client = new Client();
@@ -32,20 +40,19 @@ class HomeController extends Controller
             $produits = $sliceProducts[$page - 1];
         }
 
-        return $this->render('CopHomeBundle:Default:index.html.twig',
-        array(
-            'items' => $produits,
-            'brandFilter' => $brandFilter,
-            'priceFilter' => $priceFilter,
-            'pagination' => $pagerfanta,
-        ));
+        return $this->render('CopCommonBundle:Default:search.html.twig',
+            array(
+                'items' => $produits,
+                'brandFilter' => $brandFilter,
+                'priceFilter' => $priceFilter,
+                'pagination' => $pagerfanta,
+            ));
     }
 
     /**
      * Search action
      *
      * @Route("/{_locale}/search",
-     * name="app_search_redirect_byterm",
      * requirements={"page" = "\d+","_locale" = "%app.locales%"},
      * defaults={"page" = "1","_locale" = "fr"})
      * @Method("POST")
@@ -72,7 +79,7 @@ class HomeController extends Controller
 
     }
 
-    private function paginate( $produits, $page)
+    private function paginate($produits, $page)
     {
         $adapter = new ArrayAdapter($produits->getArrayCopy());
         $pagerfanta = new Pagerfanta($adapter);
@@ -87,5 +94,6 @@ class HomeController extends Controller
 
         return $pagerfanta;
     }
+
 
 }

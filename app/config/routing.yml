@@ -6,16 +6,23 @@ rest :
 
 
 cop_categories_db:
-    path: /{locale}/category/znx/db/{search}/{page}
-    defaults: { _controller: CopCategoriesBundle:Categories:index , _locale: fr, page: 1  }
+    path: /{locale}/znx/db/category/{search}/{page}
+    defaults: { _controller: CopApiBundle:ProductCategoryDb:index , _locale: fr, page: 1  }
     requirements:
         _locale: "%app.locales%"
 
 cop_categories_api:
-    path: /{locale}/category/znx/api/{search}/{page}
-    defaults: { _controller: CopCategoriesBundle:Categories:index , _locale: fr, page: 1  }
+    path: /{locale}/sdc/api/category/{search}/{page}
+    defaults: { _controller: CopApiBundle:ProductCategoryApi:index , _locale: fr, page: 1  }
     requirements:
         _locale: "%app.locales%"
+
+cop_categories_api_chief:
+    path: /{locale}/blender/category/{search}/{page}
+    defaults: { _controller: CopApiBundle:ProductCategory:index , _locale: fr, page: 1  }
+    requirements:
+        _locale: "%app.locales%"
+
 
 cop_categories:
     path: /{_locale}/category/{slug}/{page}

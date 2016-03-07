@@ -47,9 +47,6 @@ class ProductsRepository extends EntityRepository
     }
 
 
-
-
-
     public function findRestLatestForHome($term, $locale= "fr")
     {
         $qb =  $this->createQueryBuilder('p');
@@ -67,6 +64,52 @@ class ProductsRepository extends EntityRepository
     }
 
 
+    public function findForCategory($term, $locale)
+    {
+        $qb =  $this->createQueryBuilder('p');
+        $query =
+            $qb->select("p,
+             MATCH_AGAINST(p.name,p.description,p.categoryMerchant , :term 'IN  BOOLEAN MODE')
+             as Relevance")
+                ->where("MATCH_AGAINST (p.name,p.description,p.categoryMerchant, :term2 'IN  BOOLEAN MODE')  > 0.8")
+                ->setParameter("term",  $term)
+                ->setParameter("term2", $term)
+                ->orderBy('Relevance')->getQuery();
+
+        $set = $query->getResult();
+
+        $data = array();
+
+        $it = new DataStoreIterator($data);
+
+        foreach($set as $s){
+            $s[0]->setRelevance($s['Relevance']);
+            $s[0]->setOffers($s[0]);
+            $it->setPriceFilter($s[0]->getPrice());
+            $it->setBrandFilter($this->defineBrandFilter($s[0]->getBrand()));
+            $it->append($s[0]);
+        }
+        return $it;
+    }
+
+
+
+
+    public function findRestForCategory($term, $locale= "fr")
+    {
+        $qb =  $this->createQueryBuilder('p');
+        $query =
+            $qb->select("p,
+             MATCH_AGAINST(p.name,p.description,p.categoryMerchant , :term 'IN  BOOLEAN MODE')")
+                ->where("MATCH_AGAINST (p.name,p.description,p.categoryMerchant, :term2 'IN  BOOLEAN MODE')  > 0.8")
+                ->setParameter("term",  $term)
+                ->setParameter("term2", $term)
+                ->getQuery();
+
+        $result = $query->getResult();
+
+        return $result;
+    }
 
 
     public function defineBrandFilter($brand){

@@ -45,7 +45,6 @@ class HomeController extends Controller
      * Search action
      *
      * @Route("/{_locale}/search",
-     * name="app_search_redirect_byterm",
      * requirements={"page" = "\d+","_locale" = "%app.locales%"},
      * defaults={"page" = "1","_locale" = "fr"})
      * @Method("POST")

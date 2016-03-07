@@ -7,6 +7,8 @@ use Doctrine\ORM\EntityRepository;
 
 class CategoriesRepository extends EntityRepository
 {
+
+
     public function findRootCategories()
     {
         $query = $this->_em->createQuery(

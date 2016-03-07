@@ -16,7 +16,6 @@ class CategoriesController extends Controller
      * Categories action
      *
      * @Route("/{_locale}/category/{slug}/{page}",
-     * name="app_categories_byslug",
      * requirements={"page" = "\d+","_locale" = "%app.locales%"},
      * defaults={"page" = "1","_locale" = "fr"})
      *
@@ -28,17 +27,17 @@ class CategoriesController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         /* @var \Cop\DataStoreBundle\Entity\CategoriesRepository $categoriesRepository */
-        $categoriesRepository = $em->getRepository('AppBundle:Categories');
+        $categoriesRepository = $em->getRepository('Cop\DataStoreBundle\Entity\Categories');
         $categorie = $categoriesRepository->findOneByCategoryslug($slug);
+
 
         $term = $categorie->getTerm();
         $label = $categorie->getNameCategorie();
-
         $parent = $categoriesRepository->findRootCategoriesByChildSlug($slug);
 
         $client = new Client();
         $response = $client
-            ->get('http://163.172.129.160/app_dev.php/fr/category/products/'. $term)
+            ->get('http://163.172.129.160/app_dev.php/fr/blender/category/'. $term)
             ->getBody()
             ->getContents();
 

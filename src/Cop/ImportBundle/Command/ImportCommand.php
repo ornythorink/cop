@@ -3,23 +3,21 @@
 namespace Cop\ImportBundle\Command;
 
 
+use Cop\ImportBundle\Utils\Sources;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputArgument;
-use Cop\ImportBundle\Utils\ZnxFilteredCsvArray;
+
 use Cocur\Slugify\Slugify;
 
 
 class ImportCommand extends ContainerAwareCommand
 {
 
-    /* @todo a deplacer dans les sources  */
-    protected $merchantCategoryName = array(
-                                            'znx' => 'MerchantProductCategoryPath'
-                                      );
     protected $source;
     protected $filename;
+    protected $prefix;
 
     protected function configure()
     {
@@ -52,13 +50,18 @@ class ImportCommand extends ContainerAwareCommand
     {
         $locale = $input->getArgument('locale');
         $this->source = $input->getArgument('source');
+        $this->prefix = Sources::getSourceKey($this->source,'prefix');
+
+
         $this->filename = $input->getArgument('filename');
         $this->feedId = $input->getArgument('feedId');
 
         $iterator = $this->getExtractor($this->source,$this->filename);
         $filter = $this->getFilter();
 
-        $filteredIt = new ZnxFilteredCsvArray($iterator, $filter);
+        $FilteredCsvArray =   '\Cop\ImportBundle\Utils\\'. $this->prefix . 'FilteredCsvArray';
+
+        $filteredIt = new $FilteredCsvArray($iterator, $filter);
 
         $this->putPending($filteredIt);
     }
@@ -71,7 +74,8 @@ class ImportCommand extends ContainerAwareCommand
 
         foreach ($filteredIt as $produit) {
             $this->createPending($this->checkIfAlreadyPending($produit));
-            $repoProducts->ZnxImportCsv($produit, $this->feedId);
+            $import = $this->prefix . 'ImportCsv';
+            $repoProducts->$import($produit, $this->feedId);
         }
     }
 
@@ -79,7 +83,7 @@ class ImportCommand extends ContainerAwareCommand
     {
         $em = $this->getContainer()->get('doctrine')->getManager();
         $slugify = new Slugify();
-        $slugifiedCategory = $slugify->slugify($produit[$this->merchantCategoryName[$this->source]]);
+        $slugifiedCategory = $slugify->slugify($produit[ Sources::getSourceKey($this->source,'merchantCategoryName')  ]);
 
         $pending = $em->getRepository('Cop\DataStoreBundle\Entity\Pending')->findOneBy(
             array(
@@ -95,8 +99,8 @@ class ImportCommand extends ContainerAwareCommand
         $pendingRepo = $em->getRepository('Cop\DataStoreBundle\Entity\Pending');
 
         if(is_null($result['pending'])){
-            if(!is_null($result['produit'][$this->merchantCategoryName[$this->source]])
-                && $result['produit'][$this->merchantCategoryName[$this->source]] != "" )
+            if(!is_null($result['produit'][Sources::getSourceKey($this->source,'merchantCategoryName')])
+                && $result['produit'][Sources::getSourceKey($this->source,'merchantCategoryName')] != "" )
             {
                 $pendingRepo->createOrReplacePending($result,$this->source);
             }
@@ -111,7 +115,7 @@ class ImportCommand extends ContainerAwareCommand
         /* @todo injecter du container */
         $converter = $this->getContainer()->get('import.csvtoarray');
         /* @todo delimiter and option */
-        $iterator = $converter->convert($fileName, ',');
+        $iterator = $converter->convert($fileName, Sources::getSourceKey($this->source , 'separator') );
 
         return $iterator;
     }

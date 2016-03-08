@@ -4,7 +4,7 @@ namespace Cop\DataStoreBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
 use Cocur\Slugify\Slugify;
-use Cop\ImportBundle\Utils\SourcesConfig;
+use Cop\ImportBundle\Utils\Sources;
 
 
 /**
@@ -22,7 +22,7 @@ class PendingRepository extends EntityRepository
             "
                 SELECT
                   p
-                FROM AppBundle:Pending p
+                FROM Cop\DataStoreBundle\Entity\Categories\Pending p
             "
         );
 
@@ -33,7 +33,7 @@ class PendingRepository extends EntityRepository
     public function createOrReplacePending($params, $source)
     {
         $slugify = new Slugify();
-        $source_category = SourcesConfig::getSourceKey($source, 'merchantCategoryName');
+        $source_category = Sources::getSourceKey($source, 'merchantCategoryName');
 
         $slugified_source_category = $slugify->slugify($params['produit'][$source_category] );
         $label = $params['produit'][$source_category] ;

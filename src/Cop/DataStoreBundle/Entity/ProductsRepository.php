@@ -58,7 +58,8 @@ class ProductsRepository extends EntityRepository
                 ->setParameter("term",  $term)
                 ->setParameter("term2", $term)
                 ->setMaxResults(100)
-                ->getQuery();
+                ->getQuery()
+                ->orderBy('Relevance')->getQuery();
 
         $result = $query->getResult();
 

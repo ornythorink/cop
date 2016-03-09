@@ -66,7 +66,6 @@ class HomeController extends Controller
             $term = $data['query'];
         }
 
-
         return $this->redirect($this->generateUrl('cop_common_search_index', array('term' => $term, 'page' => 1) ), 301);
 
     }

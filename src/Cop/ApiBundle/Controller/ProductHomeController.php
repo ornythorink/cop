@@ -28,7 +28,7 @@ use GuzzleHttp\Promise;
 
             // Fetch some data
             $loremPromise  = $client->getAsync('http://www.ornythorink.ovh/app_dev.php/home/products/sdc/api/fr/'.$search);
-            $randomPromise = $client->getAsync('http://163.172.129.160/app_dev.php/home/products/znx/db/fr/chaussures');
+            $randomPromise = $client->getAsync('http://163.172.129.160/app_dev.php/home/products/znx/db/fr/'. $search);
 
             // Wait on all of the requests to complete
             $results = Promise\unwrap([$loremPromise, $randomPromise]);

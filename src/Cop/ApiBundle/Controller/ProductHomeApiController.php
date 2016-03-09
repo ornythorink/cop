@@ -39,12 +39,10 @@ class ProductHomeApiController extends Controller
 
     public function searchProducts($request, $search)
     {
-        $search = $request->get('search');
         $locale = $request->getLocale();
         $page = 1;
         $this->api = new Client();
 
-        $search = "chaussures";
         $agent = $_SERVER['HTTP_USER_AGENT'] ;
         $ip = $_SERVER['REMOTE_ADDR'];
 

@@ -155,11 +155,13 @@ class ProductsRepository extends EntityRepository
         return new Paginator($q);
     }
 
-    public function ZnxImportCsv(array $produit, $feed)
+    public function ZnxImportCsv(array $produit, $feedId)
     {
-//
-//        $siteId = $this->getFeed()->getId();
-//        $siteName = $this->getFeed()->getSitename();
+        $repoFeed = $this->_em->getRepository('\Cop\ImportBundle\Entity\FeedCSV');
+
+        $site = $repoFeed->find($feedId);
+        $sitename = $site->getSitename();
+
 
         $image = "";
         if ($produit['ImageLargeURL'] != "" && $produit['ImageLargeURL'] !== null) {
@@ -170,8 +172,6 @@ class ProductsRepository extends EntityRepository
             $image = $produit['ImageSmallURL'];
         }
 
-        $siteId = 1 ;
-        $sitename = 1;
 
         $sql  = <<<SQL
                             INSERT IGNORE
@@ -230,7 +230,7 @@ SQL;
         $stmt->bindValue("name", $produit['ProductName']);
         $stmt->bindValue("price", $produit['ProductPrice']);
         $stmt->bindValue("currency", $produit['CurrencySymbolOfPrice']);
-        $stmt->bindValue("site_id", $siteId);
+        $stmt->bindValue("site_id", $feedId);
         $stmt->bindValue("promo", $produit['ProductPrice']);
         $stmt->bindValue("status", "Validation");
         $stmt->bindValue("brand", $produit['ProductManufacturerBrand']);
